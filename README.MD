@@ -15,8 +15,11 @@ pipenv --three
 pipenv install django djoser django-rest-framework django-cors-headers pillow stripe
 
 npm install -g @vue/cli
+
 vue create djackets_vue
+
 npm i axios
+
 npm i bulma
 
 
