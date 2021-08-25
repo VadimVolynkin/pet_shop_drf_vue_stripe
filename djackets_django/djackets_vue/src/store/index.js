@@ -25,8 +25,11 @@ export default createStore({
       } else {
         state.cart.items.push(item)
       }
-      
+
       localStorage.setItem('cart', JSON.stringify(state.cart))
+    },
+    setIsLoading(state, status) {
+      state.isLoading = status
     },
   },
   actions: {

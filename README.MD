@@ -24,4 +24,7 @@ npm i axios
 
 npm i bulma
 
+npm i bulma-toast
+
+
 
