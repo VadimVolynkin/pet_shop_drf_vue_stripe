@@ -57,7 +57,7 @@ export default{
                     console.log(error)
                 })
 
-            this.$store.commit('setIsLoading', true)
+            this.$store.commit('setIsLoading', false)
         },
         addToCart() {
             if (isNaN(this.quantity) || this.quantity < 1 ) {
