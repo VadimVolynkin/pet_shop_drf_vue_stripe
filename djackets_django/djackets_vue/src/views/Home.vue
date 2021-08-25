@@ -21,38 +21,41 @@
       >
         <div class="box">
           <figure class="image mb-4">
-            <img :src='product.get_thumbnail'>
+            <img :src="product.get_thumbnail">
           </figure>
+          
           <h3 class="is-size-4">{{ product.name }}</h3>
           <p class="is-size-6 has-text-grey">${{ product.price }}</p>
-          View Details
+
+          <router-link 
+          :to="product.get_absolute_url" 
+          class="button is-dark mt-4"
+          >
+            View details
+          </router-link>
+
 
         </div>
     </div>
   </div> 
-
 </div>
 </template>
 
 <script>
-
 import axios from 'axios'
 
 export default {
   name: 'Home',
-  date() {
+  data() {
     return {
-      latestProducts: []
+      latestProducts: [],
     }
-  },
-  components: {
-
   },
   mounted() {
     this.getLatestProducts()
   },
   methods: {
-    getLatestProducts() {
+    getLatestProducts(){
       axios
         .get('/api/v1/latest-products/')
         .then(response => {
@@ -63,7 +66,6 @@ export default {
         })
     },
   }
-
 }
 </script>
 
