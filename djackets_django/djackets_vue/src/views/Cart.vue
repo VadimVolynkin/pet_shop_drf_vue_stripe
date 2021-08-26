@@ -18,7 +18,8 @@
                       <CartItem
                         v-for="item in cart.items"
                         v-bind:key="item.product.id"
-                        v-bind:initialItem="item"/>
+                        v-bind:initialItem="item"
+                        v-on:removeFromCart="removeFromCart"/>
                   </tbody>
               </table>
               <p v-else>You don`t have any products in your cart...</p>
@@ -49,6 +50,11 @@ export default {
             cart: {
                 items: []
             }
+        }
+    },
+    methods: {
+        removeFromCart(item) {
+            this.cart.items = this.cart.items.filter(i => i.product.id !== item.product.id)
         }
     },
     mounted() {
