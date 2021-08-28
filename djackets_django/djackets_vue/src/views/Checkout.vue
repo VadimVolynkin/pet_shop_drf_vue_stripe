@@ -132,13 +132,118 @@ export default {
     },
     mounted(){
         document.title = 'Checkout | Djackets'
+
         this.cart = this.$store.state.cart
+
+        if (this.cartTotalLength > 0) {
+            this.stripe = Stripe(pk_test_34345435453)
+            const elements = this.stripe.elements();
+            this.card = elements.create('card', { HidePostalCode: true })
+
+            this.card.mount('#card-element')
+        }
+
     },
     methods: {
         getItemTotal(item) {
             return item.quantity * item.product.price
         },
         submitForm() {
+            this.errors = []
+
+            if (this.first_name === '') {
+                this.errors.push('The first name field is missing!')
+            }
+
+            if (this.last_name === '') {
+                this.errors.push('The last name field is missing!')
+            }
+
+            if (this.email === '') {
+                this.errors.push('The email field is missing!')
+            }
+
+            if (this.phone === '') {
+                this.errors.push('The phone field is missing!')
+            }
+
+            if (this.address === '') {
+                this.errors.push('The last name field is missing!')
+            }
+
+            if (this.last_name === '') {
+                this.errors.push('The address field is missing!')
+            }
+
+            if (this.zipcode === '') {
+                this.errors.push('The zipcode field is missing!')
+            }
+
+            if (this.place === '') {
+                this.errors.push('The place field is missing!')
+            }
+
+
+            if (!this.errors.length) {
+                this.$store.commit("setIsLoading", true)
+                this.stripe.createToken(this.card).then(result => {
+                    if (result.error) {
+                        this.$store.commit('setIsLoading', false)
+
+                        this.errors.push('Something went wrong with Stripe. Please try again.')
+
+                        console.log(result.error.message)
+                    } else {
+                        this.stripeTokenHandler(result.token)
+                    }
+                })
+            }
+
+        },
+        async stripeTokenHandler(token) {
+            const items = []
+
+            for (let i = 0; this.cart.items.length; i++) {
+                const item = this.cart.items[i]
+                const obj = {
+                    product: item.product.id,
+                    quantity: item.quantity,
+                    price: item.product.price * item.quantity,
+                }
+
+                items.push(obj)
+            }
+
+            const data = {
+                'first_name': this.first_name,
+                'last_name': this.last_name,
+                'email': this.email,
+                'address': this.address,
+                'zipcode': this.zipcode,
+                'place': this.place,
+                'phone': this.phone,
+                'items': items,
+                'stripe_token': token.id,
+            }
+
+            await axios
+                .post('/api/v1/checkout', data)
+                .then(response => {
+                    this.$store.commit('clearCart')
+                    this.$router.push('/cart/success')
+                })
+                .catch(error => {
+                    this.errors.push('Something went wrong. Please try again.')
+
+                    console.log(error)
+                })
+
+                this.$store.commit('setIsLoading', false)
+
+
+
+
+
 
         },
     },

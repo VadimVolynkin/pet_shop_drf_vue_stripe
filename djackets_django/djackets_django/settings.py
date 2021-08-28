@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+STRIPE_SECRET_KEY = 'sk_test_'
 
 # Application definition
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'djoser',
 
     'product',
+    'order',
 ]
 
 
