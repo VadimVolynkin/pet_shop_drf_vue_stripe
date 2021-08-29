@@ -10,6 +10,7 @@ django-rest-framework = "*"
 django-cors-headers = "*"
 pillow = "*"
 stripe = "*"
+django-environ = "*"
 
 [dev-packages]
 

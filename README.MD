@@ -14,17 +14,13 @@ npm install
 What i installed
 ========
 pipenv --three
-pipenv install django djoser django-rest-framework django-cors-headers pillow stripe
+pipenv install django djoser django-rest-framework django-cors-headers pillow stripe django-environ
 
 npm install -g @vue/cli
 
 vue create djackets_vue
 
-npm i axios
-
-npm i bulma
-
-npm i bulma-toast
+npm i axios bulma bulma-toast
 
 
 

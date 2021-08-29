@@ -3,6 +3,7 @@
       <div class="columns is-multiline">
           <div class="column is-12">
                 <h1 class="title">Checkout</h1>
+                {{stripe}}
           </div>
           <div class="column is-12 box">
               <table class="table is-fullwidth">
@@ -85,7 +86,8 @@
                           </div>
                       </div>
                   </div>
-                  <div class="notification is-danger mt-4" v-if="errors.length">
+              </div>
+              <div class="notification is-danger mt-4" v-if="errors.length">
                       <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
                   </div>
 
@@ -96,13 +98,7 @@
                   <template v-if="cartTotalLength">
                       <hr>
                       <button class="button is-dark" @click="submitForm">Pay with stripe</button>
-
                   </template>
-
-
-
-
-              </div>
           </div>
       </div>
   </div>
@@ -110,6 +106,7 @@
 
 <script>
 import axios from 'axios'
+
 
 export default {
     name: "Checkout",
@@ -136,9 +133,10 @@ export default {
         this.cart = this.$store.state.cart
 
         if (this.cartTotalLength > 0) {
-            this.stripe = Stripe(pk_test_34345435453)
+            this.stripe = Stripe(STRIPE_API_PUBLIC_KEY_TEST)
+
             const elements = this.stripe.elements();
-            this.card = elements.create('card', { HidePostalCode: true })
+            this.card = elements.create('card', { hidePostalCode: true })
 
             this.card.mount('#card-element')
         }
@@ -186,6 +184,7 @@ export default {
 
             if (!this.errors.length) {
                 this.$store.commit("setIsLoading", true)
+
                 this.stripe.createToken(this.card).then(result => {
                     if (result.error) {
                         this.$store.commit('setIsLoading', false)
@@ -198,7 +197,6 @@ export default {
                     }
                 })
             }
-
         },
         async stripeTokenHandler(token) {
             const items = []
@@ -239,11 +237,6 @@ export default {
                 })
 
                 this.$store.commit('setIsLoading', false)
-
-
-
-
-
 
         },
     },

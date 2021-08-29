@@ -12,9 +12,18 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+import os
+import environ
+
+# Environ
+env = environ.Env()
+environ.Env.read_env('.env')
+
+STRIPE_API_PUBLIC_KEY=env('STRIPE_API_PUBLIC_KEY_TEST')
+STRIPE_API_SECRET_KEY=env('STRIPE_API_SECRET_KEY_TEST')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -26,8 +35,6 @@ SECRET_KEY = 'django-insecure-n1ru^w)5-+qtq+o=4kx&tn3x5pzkoe553-n%$p(@+5sqr8kz@p
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-STRIPE_SECRET_KEY = 'sk_test_'
 
 # Application definition
 
