@@ -3,7 +3,6 @@
       <div class="columns is-multiline">
           <div class="column is-12">
                 <h1 class="title">Checkout</h1>
-                {{stripe}}
           </div>
           <div class="column is-12 box">
               <table class="table is-fullwidth">
@@ -133,7 +132,7 @@ export default {
         this.cart = this.$store.state.cart
 
         if (this.cartTotalLength > 0) {
-            this.stripe = Stripe(STRIPE_API_PUBLIC_KEY_TEST)
+            this.stripe = Stripe(process.env.VUE_APP_STRIPE_API_PUBLIC_KEY)
 
             const elements = this.stripe.elements();
             this.card = elements.create('card', { hidePostalCode: true })

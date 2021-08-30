@@ -19,8 +19,8 @@ import environ
 env = environ.Env()
 environ.Env.read_env('.env')
 
-STRIPE_API_PUBLIC_KEY=env('STRIPE_API_PUBLIC_KEY_TEST')
-STRIPE_API_SECRET_KEY=env('STRIPE_API_SECRET_KEY_TEST')
+STRIPE_API_PUBLIC_KEY=env('STRIPE_API_PUBLIC_KEY')
+STRIPE_API_SECRET_KEY=env('STRIPE_API_SECRET_KEY')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
