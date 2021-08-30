@@ -106,7 +106,6 @@
 <script>
 import axios from 'axios'
 
-
 export default {
     name: "Checkout",
     data() {
@@ -200,7 +199,7 @@ export default {
         async stripeTokenHandler(token) {
             const items = []
 
-            for (let i = 0; this.cart.items.length; i++) {
+            for (let i = 0; i < this.cart.items.length; i++) {
                 const item = this.cart.items[i]
                 const obj = {
                     product: item.product.id,
