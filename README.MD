@@ -9,8 +9,6 @@ pipenv install django djoser django-rest-framework django-cors-headers pillow st
 
 npm install -g @vue/cli
 
-vue create djackets_vue
-
 npm i axios bulma bulma-toast
 
 How to run
