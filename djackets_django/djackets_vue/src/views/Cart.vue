@@ -38,7 +38,7 @@
 
 <script>
 import axios from 'axios'
-import CartItem from '../views/CartItem'
+import CartItem from '@/components/CartItem.vue'
 
 export default {
     name: 'Cart',
